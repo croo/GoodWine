@@ -1,24 +1,21 @@
-function handleFileSelect(evt) {
-    var file = evt.target.files[0]; // FileList object
-    var reader = new FileReader();
-
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    output.push('&bull; Loaded file: ')
-    output.push('<strong>', escape(file.name), '</strong>');
-    output.push(' - ');
-    output.push('<i>', file.size, ' kb </i>');
-    document.getElementById('data_info_box').innerHTML = output.join('');
-
-    reader.onload = function(e) {
-        var data = $.csv.toObjects(e.target.result);
-        drawScatterplot(data);
-    };
-
-    var rawCSV = reader.readAsText(file);
-    console.log(rawCSV);
-   }
+var red_wine;
+var white_wine;
 
 $(document).ready(function(){
-    document.getElementById('data_1').addEventListener('change', handleFileSelect, false);
+
+    $.get("wine/wine_red.csv",
+            function(data){
+                red_wine = $.csv.toObjects(data);
+                drawScatterplot(red_wine);
+            },
+        "text"
+    );
+
+    $.get("wine/wine_white.csv",
+            function(data){
+                white_wine = $.csv.toObjects(data);
+                drawScatterplot(white_wine);
+            },
+        "text"
+    );
 });

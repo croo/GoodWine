@@ -2,6 +2,8 @@ function drawScatterplot(dataset) {
 
 var w = 500,h = 500;
 
+console.log(dataset);
+
 var svg = d3.select("#scatterplot")
             .append("svg")
             .attr("width",w)
