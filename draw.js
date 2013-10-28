@@ -1,8 +1,12 @@
+function draw() {
+  drawScatterplot(red_wines);
+  drawScatterplot(white_wines);
+}
+
+
 function drawScatterplot(dataset) {
 
 var w = 500,h = 500;
-
-console.log(dataset);
 
 var svg = d3.select("#scatterplot")
             .append("svg")
