@@ -1,21 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<title>What makes a good wine?</title>
-<script>
-// The jquery csv library will bind to this variable at initialization.
-var $ = {};
-</script>
-<script src="libs/d3.v3.js" type="text/javascript" charset="utf-8"></script>
-<script src="libs/jquery.csv-0.71.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="main.css">
-<body>
+<head>
+  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
 
-<input type="file" id="data_1" value="Load a wine database..." />
-<input type="file" id="data_2" value="Load a wine database..." />
-<div id="scatterplot">
-</div>
-<script src="draw.js" type="text/javascript" charset="utf-8"></script>
-<script src="file_loader.js" type="text/javascript" charset="utf-8"></script>
+  <title>What makes a good wine?</title>
+  <script type="text/javascript">
+    // The jquery-csv library will bind to this variable at initialization.
+    // This way I don't have to use JQuery too. 
+    var $ = {};
+  </script>
+  <script src="libs/d3.v3.js" type="text/javascript" charset="utf-8">
+</script>
+  <script src="libs/jquery.csv-0.71.js" type="text/javascript" charset="utf-8">
+</script>
+  <link rel="stylesheet" href="main.css" type="text/css">
+</head>
+
+<body>
+  <form action="POST">
+    <input type="file" id="data_1" value="Load a wine database...">
+  </form>
+
+  <div id="scatterplot"></div><script src="draw.js" type="text/javascript" charset="utf-8">
+</script><script src="file_loader.js" type="text/javascript" charset="utf-8">
+</script>
 </body>
 </html>
