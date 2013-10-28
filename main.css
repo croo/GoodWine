@@ -1,3 +1,9 @@
-#scatterplot {
-    background-color:green;
+#scatterplot svg {
+  background-color:green;
+  margin: 2px 2px 2px 2px;
+}
+
+#data_info_box {
+  text-indent:1em;
+  margin: 5px 5px 5px 5px;
 }

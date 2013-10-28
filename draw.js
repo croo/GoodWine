@@ -1,7 +1,6 @@
+function drawScatterplot(dataset) {
 
-var w = 500,h = 100;
-
-var dataset = [{"x":10,"y":50},{"x":20,"y":10}]
+var w = 500,h = 500;
 
 var svg = d3.select("#scatterplot")
             .append("svg")
@@ -13,9 +12,11 @@ var svg = d3.select("#scatterplot")
                 .enter()
                 .append("circle")
                 .attr("cx", function (d) {
-                        return d.x;
+                        return d.alcohol*20;
                         })
                 .attr("cy",function (d) {
-                        return d.y;
+                        return d.quality*50;
                         })
                 .attr("r", 5);
+}
+
