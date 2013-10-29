@@ -1,24 +1,14 @@
-var columns = ["fixed_acidity","volatile_acidity","citric_acid","residual_sugar","chlorides","free_sulfur_dioxide","total_sulfur_dioxide","density","pH","sulphates","alcohol","quality"];
 var w = 630,h = 630;
 var svg;
 
-var scatterplotX = columns[0];
-var scatterplotY = columns[6];
-
-var wines;
-
-function initDraw() {
-    wines = red_wines.concat(white_wines);
-
-    svg = d3.select("#scatterplot")
-                .append("svg")
-                .attr("width",w)
-                .attr("height",h);
-
-    drawScatterplot(wines,scatterplotX,scatterplotY);
-}
+    var scatterplotX;
+    var scatterplotY;
 
 function drawScatterplot(dataset,xValue,yValue) {
+    svg = svg || d3.select("#scatterplot")
+                            .append("svg")
+                            .attr("width",w)
+                            .attr("height",h);
 
     var padding = 30;
     var xMax,xMin,yMax,yMin;
@@ -87,5 +77,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+
+    scatterplotX = columns[0];
+    scatterplotY = columns[6];
 });

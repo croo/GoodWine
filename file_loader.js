@@ -1,8 +1,8 @@
-var white_wines = {};
-var red_wines = {};
+var white_wines = {"loaded":false};
+var red_wines = {"loaded":false};
+var wines;
 
-white_wines.loaded = false;
-red_wines.loaded = false;
+var columns = ["fixed_acidity","volatile_acidity","citric_acid","residual_sugar","chlorides","free_sulfur_dioxide","total_sulfur_dioxide","density","pH","sulphates","alcohol","quality"];
 
 $(document).ready(function(){
 
@@ -35,3 +35,7 @@ function white_success(data) {
     }
 }
 
+function initDraw() {
+    wines = red_wines.concat(white_wines);
+    drawScatterplot(wines,columns[0],columns[6]);
+}
