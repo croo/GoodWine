@@ -17,15 +17,15 @@
 </head>
 <body>
   <div id="dataset_selectbox">
-      <input type="checkbox" name="red_wine" value="red_wine" checked/> red wine data
-      <input type="checkbox" name="white_wine" value="white_wine" checked/> white wine data
+      <input type="checkbox" name="red_wine" value="red" checked/> red wine data
+      <input type="checkbox" name="white_wine" value="white" checked/> white wine data
   </div>
 y axis:
   <select id="data_y">
       <option value="fixed_acidity" selected>Fixed acidity</option>
       <script>
-        for(var i = 1; i < columns.length;i++){
-            $("#data_y").append("<option value =\""+columns[i]+"\">"+columns[i]+"</option>")
+        for(var i = 1; i < wines.columns.length;i++){
+            $("#data_y").append("<option value =\""+wines.columns[i]+"\">"+wines.columns[i]+"</option>")
         }
       </script>
   </select>
@@ -35,8 +35,8 @@ x axis:
   <select id="data_x">
       <option value="fixed_acidity" selected>Fixed acidity</option>
       <script>
-        for(var i = 1; i < columns.length;i++){
-            $("#data_x").append("<option value =\""+columns[i]+"\">"+columns[i]+"</option>")
+        for(var i = 1; i < wines.columns.length;i++){
+            $("#data_x").append("<option value =\""+wines.columns[i]+"\">"+wines.columns[i]+"</option>")
         }
       </script>
   </select>
