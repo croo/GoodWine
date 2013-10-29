@@ -20,12 +20,18 @@ $(document).ready(function(){
 });
 
 function red_success(data) {
-    white_wines = $.csv.toObjects(data);
-    white_wines.loaded = true;
+    red_wines = $.csv.toObjects(data);
+    red_wines.loaded = true;
+    for(var i=0; i < red_wines.length;i++) {
+        red_wines[i].type = "red"
+    }
 }
 
 function white_success(data) {
-    red_wines = $.csv.toObjects(data);
-    red_wines.loaded = true;
+    white_wines = $.csv.toObjects(data);
+    white_wines.loaded = true;
+    for(var i=0; i < white_wines.length;i++) {
+        white_wines[i].type = "white"
+    }
 }
 

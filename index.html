@@ -18,7 +18,26 @@
 <body>
   <div id="data_info_box">
   </div>
+y axis:
+  <select id="data_y">
+      <option value="fixed_acidity" selected>Fixed acidity</option>
+      <script>
+        for(var i = 1; i < columns.length;i++){
+            $("#data_y").append("<option value =\""+columns[i]+"\">"+columns[i]+"</option>")
+        }
+      </script>
+  </select>
   <div id="scatterplot">
   </div>
+x axis:
+  <select id="data_x">
+      <option value="fixed_acidity" selected>Fixed acidity</option>
+      <script>
+        for(var i = 1; i < columns.length;i++){
+            $("#data_x").append("<option value =\""+columns[i]+"\">"+columns[i]+"</option>")
+        }
+      </script>
+  </select>
+
 </body>
 </html>
