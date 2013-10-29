@@ -50,7 +50,11 @@ function drawScatterplot(dataset,xValue,yValue) {
                     .attr("cy",function (d) {
                             return yScale(d[yValue]);
                             })
-                    .attr("r", 4);
+                    .attr("r", 4)
+                    .attr("fill",function(d){return d.wine_type=="red"?"red":"gold";})
+                    .attr("fill-opacity","0.2")
+                    .attr("stroke",function(d){return d.wine_type=="red"?"firebrick":"goldenrod"})
+                    .attr("stroke-width","1");
 
     var xAxis = d3.svg.axis().scale(xScale).orient("top");
     var yAxis = d3.svg.axis().scale(yScale).orient("right");
