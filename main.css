@@ -3,11 +3,6 @@
     margin: 2px 2px 2px 2px;
 }
 
-#data_info_box {
-    text-indent:1em;
-    margin: 5px 5px 5px 5px;
-}
-
 .axis path,
 .axis line {
     fill: none;
@@ -19,4 +14,18 @@
 .axis text {
     font-family: sans-serif;
     font-size: 12px;
+}
+
+.red_wine {
+    fill:red;
+    fill-opacity:0.2;
+    stroke: firebrick;
+    stroke-width:1;
+}
+
+.white_wine {
+    fill:gold;
+    fill-opacity:0.2;
+    stroke:goldenrod;
+    stroke-width:1;
 }

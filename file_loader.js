@@ -9,7 +9,7 @@ $(document).ready(function(){
    var intervalId = setInterval(function(){
                                     if(white_wines.loaded && red_wines.loaded){
                                         clearInterval(intervalId);
-                                        draw();
+                                        initDraw();
                                     }
                                 },
                                 200);
