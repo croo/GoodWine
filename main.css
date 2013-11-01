@@ -29,3 +29,16 @@
     stroke:goldenrod;
     stroke-width:1;
 }
+
+#quality_selectbox {
+    margin-left:20%;
+}
+
+#dataset_selectbox {
+    margin-left:20%;
+}
+
+body {
+    margin-top:20px;
+    margin-left:20px;
+}

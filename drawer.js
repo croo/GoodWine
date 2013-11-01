@@ -4,8 +4,51 @@ wines.red = {};
 
 wines.columns = ["fixed_acidity","volatile_acidity","citric_acid","residual_sugar","chlorides","free_sulfur_dioxide","total_sulfur_dioxide","density","pH","sulphates","alcohol","quality"];
 
-$(document).ready(function(){
+var scatterplotX;
+var scatterplotY;
 
+// wire events
+$(document).ready(function() {
+
+    scatterplotX = wines.columns[0];
+    scatterplotY = wines.columns[6];
+
+    //on changing the X axis
+    $("#data_x").change(function(){
+        scatterplotX = $("#data_x").val();
+        drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
+        if(!wines.red.visible) {
+            $(".red_wine").hide();
+        }
+        if(!wines.white.visible) {
+            $(".white_wine").hide();
+        }
+    });
+
+    //on changing the Y axis
+    $("#data_y").change(function(){
+        scatterplotY = $("#data_y").val();
+        var dataset = [];
+        drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
+        if(!wines.red.visible) {
+            $(".red_wine").hide();
+        }
+        if(!wines.white.visible) {
+            $(".white_wine").hide();
+        }
+    });
+
+    // on changing the dataset visibility
+    $("#dataset_selectbox input").change(function() {
+        updateDatasetVisibility();
+    });
+
+    // on changing the quality visibility
+    $("#quality_selectbox input").change(function() {
+        updateQualityVisibility();
+    });
+
+    // Wait with the drawing until the csv files are loaded.
    var intervalId = setInterval(function(){
                                     if(wines.white.loaded && wines.red.loaded){
                                         clearInterval(intervalId);
@@ -14,6 +57,7 @@ $(document).ready(function(){
                                 },
                                 200);
 
+   // load the csv files
     $.get("wine/wine_red.csv", red_success, "text");
     $.get("wine/wine_white.csv", white_success, "text");
 });
@@ -37,5 +81,28 @@ function white_success(data) {
 }
 
 function initDraw() {
-    drawScatterplot(wines.red.concat(wines.white),wines.columns[0],wines.columns[6]);
+    drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
 }
+
+function updateQualityVisibility(visibleDots){
+    $("#quality_selectbox input").each(function(i,checkbox) {
+        if(checkbox.checked) {
+            $(".q"+checkbox.value).show();
+        } else {
+            $(".q"+checkbox.value).hide();
+        }
+    });
+}
+
+function updateDatasetVisibility() {
+    $("#dataset_selectbox input").each(function(i,checkbox) {
+        if(checkbox.checked) {
+            $("."+checkbox.name).show();
+            wines[checkbox.value].visible = true;
+        } else {
+            $("." + checkbox.name).hide();
+            wines[checkbox.value].visible = false;
+        }
+    });
+}
+
