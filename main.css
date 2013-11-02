@@ -7,8 +7,23 @@
 .axis line {
     fill: none;
     stroke: black;
-    stroke-width:4;
     shape-rendering: crispEdges;
+}
+
+.s_axis path,
+.s_axis line {
+    stroke-width:4;
+}
+
+.p_axis path,
+.p_axis line {
+    stroke-width:1;
+}
+
+.p_axis_label {
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight:bold;
 }
 
 .axis text {
