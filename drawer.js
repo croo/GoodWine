@@ -40,12 +40,12 @@ $(document).ready(function() {
 
     // on changing the dataset visibility
     $("#dataset_selectbox input").change(function() {
-        updateDatasetVisibility();
+        updateVisibility();
     });
 
     // on changing the quality visibility
     $("#quality_selectbox input").change(function() {
-        updateQualityVisibility();
+        updateVisibility();
     });
 
     // Wait with the drawing until the csv files are loaded.
@@ -84,24 +84,25 @@ function initDraw() {
     drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
 }
 
-function updateQualityVisibility(visibleDots){
-    $("#quality_selectbox input").each(function(i,checkbox) {
-        if(checkbox.checked) {
-            $(".q"+checkbox.value).show();
-        } else {
-            $(".q"+checkbox.value).hide();
-        }
-    });
-}
-
-function updateDatasetVisibility() {
+function updateVisibility() {
     $("#dataset_selectbox input").each(function(i,checkbox) {
         if(checkbox.checked) {
             $("."+checkbox.name).show();
             wines[checkbox.value].visible = true;
+            updateQualityVisibility("."+checkbox.name);
         } else {
             $("." + checkbox.name).hide();
             wines[checkbox.value].visible = false;
+        }
+    });
+}
+
+function updateQualityVisibility(wineType){
+    $("#quality_selectbox input").each(function(i,checkbox) {
+        if(checkbox.checked) {
+            $(wineType+" .q"+checkbox.value).show();
+        } else {
+            $(".q"+checkbox.value).hide();
         }
     });
 }
