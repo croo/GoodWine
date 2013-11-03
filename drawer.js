@@ -11,7 +11,7 @@ var scatterplotY;
 $(document).ready(function() {
 
     scatterplotX = wines.columns[0];
-    scatterplotY = wines.columns[6];
+    scatterplotY = wines.columns[0];
 
     //on changing the X axis
     $("#data_x").change(function(){
@@ -88,8 +88,8 @@ function white_success(data) {
 }
 
 function initDraw() {
-    drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
-    drawParalellCoordinates(wines.red.concat(wines.white));
+    drawScatterplot(wines.white.concat(wines.red),scatterplotX,scatterplotY);
+    drawParalellCoordinates(wines.white.concat(wines.red));
 }
 
 function updateScatterplotVisibility() {
