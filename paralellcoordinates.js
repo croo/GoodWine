@@ -10,7 +10,7 @@ var xScale,yScale;
 var lineFunction = d3.svg.line()
             .x(function(d){return d.x;})
             .y(function(d){return d.y;})
-            .interpolate("monotone");
+            .interpolate("linear");
 
 function drawParalellCoordinates(dataset) {
     p_svg = d3.select("#paralell")
