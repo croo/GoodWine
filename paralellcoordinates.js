@@ -50,8 +50,9 @@ function drawParalellCoordinates(dataset) {
                                 .data(dataset).enter()
                                 .append("path")
                                 .attr("d", function(d){return lineFunction(lineData(d));})
+                                .attr("class",function(d){return (d.type=="red"?"red_wine":"white_wine") +" q"+d.quality;})
                                 .style("stroke-width",1)
-                                .style("stroke","grey")
+                                .style("stroke","lavender")
                                 .style("fill","none");
 
     /*var foreground_lines = p_svg.append("g")

@@ -81,7 +81,7 @@ function white_success(data) {
 }
 
 function initDraw() {
-    //drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
+    drawScatterplot(wines.red.concat(wines.white),scatterplotX,scatterplotY);
     drawParalellCoordinates(wines.red.concat(wines.white));
 }
 
