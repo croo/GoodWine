@@ -49,6 +49,11 @@ $(document).ready(function() {
         updateScatterplotVisibility();
         updateParallelVisibility();
     });
+    
+    $("#bg_checkbox").change(function() {
+        updateParallelVisibility();
+    });
+
 
     // Wait with the drawing until the csv files are loaded.
    var intervalId = setInterval(function(){

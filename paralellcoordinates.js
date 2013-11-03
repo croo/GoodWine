@@ -44,17 +44,17 @@ function drawParalellCoordinates(dataset) {
             .attr("y",function(d,i){ return i%2 ? 30 : 10;})
             .text(function(d){return d.replace(/_/g,"\n");});
 
-    var foreground_lines = p_svg.append("g")
-                                .attr("class","foreground_lines")
-                                .selectAll("path")
-                                .data(dataset).enter()
-                                .append("path")
-                                .attr("d", function(d){return lineFunction(lineData(d));})
-                                .attr("class",function(d){return (d.type=="red"?"red_wine":"white_wine") +" q"+d.quality;})
-                                .style("stroke-width",1)
-                                .style("stroke-opacity",0.2)
-                                .style("stroke","lavender")
-                                .style("fill","none");
+        var lines = p_svg.append("g")
+            .attr("class","lines")
+            .selectAll("path")
+            .data(dataset).enter()
+            .append("path")
+            .attr("d", function(d){return lineFunction(lineData(d));})
+            .attr("class",function(d){return (d.type=="red"?"red_wine":"white_wine") +" q"+d.quality;})
+            .style("stroke-width",1)
+            .style("stroke-opacity",0.2)
+            .style("stroke","lavender")
+            .style("fill","none");
     updateParallelVisibility();
     /*var foreground_lines = p_svg.append("g")
                                 .attr("class","foreground_lines")
@@ -67,24 +67,24 @@ function drawParalellCoordinates(dataset) {
 function updateParallelVisibility() {
     $("#dataset_selectbox input").each(function(i,checkbox) {
         if(checkbox.checked) {
-            $("#paralell ."+checkbox.name).show();
+            $("#paralell .lines ."+checkbox.name).show();
             wines[checkbox.value].visible = true;
             updateParallelQualityVisibility(checkbox.name);
         } else {
-            $("#paralell ." + checkbox.name).hide();
+            $("#paralell .lines ." + checkbox.name).hide();
             wines[checkbox.value].visible = false;
         }
     });
 }
 
-function updateParallelQualityVisibility(wineType){
+function updateParallelQualityVisibility(wineClass){
     $("#quality_selectbox input").each(function(i,checkbox) {
         if(checkbox.checked) {
-            $("#paralell ."+wineType+" .q"+checkbox.value).attr("stroke",wineType =="red"?"red":"gold");
-            $("."+wineType+" .q"+checkbox.value).attr("stroke-opacity",1.0);
+            $("#paralell .lines").find("."+wineClass+".q"+checkbox.value)
+                                .css({"stroke":wineClass =="red_wine"?"red":"gold","stroke-opacity":"0.95"});
         } else {
-            $("#paralell .q"+checkbox.value).attr("stroke","lavender");
-            $("#paralell .q"+checkbox.value).attr("stroke-opacity",0.2);
+            var bg_visibility = $("#bg_checkbox")[0].checked ? "0.05": "0";
+            $("#paralell .lines").find(".q"+checkbox.value).css({"stroke":"grey","stroke-opacity":bg_visibility});
         }
     });
 }
