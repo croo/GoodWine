@@ -6,25 +6,42 @@
   <title>What makes a good wine?</title>
   <link rel="icon" href="wine-favicon.png">
 
+  <!-- Third pary libraries -->
   <script src="libs/jquery-2.0.3.js" type="text/javascript" charset="utf-8"> </script>
   <script src="libs/jquery.csv-0.71.js" type="text/javascript" charset="utf-8"> </script>
   <script src="libs/d3.v3.js" type="text/javascript" charset="utf-8"> </script>
 
+  <link href="libs/bootstrap.css" rel="stylesheet" type="text/css">
+
+  <!-- Own code -->
   <script src="scatterplot.js" type="text/javascript" charset="utf-8"></script>
   <script src="paralellcoordinates.js" type="text/javascript" charset="utf-8"></script>
   <script src="drawer.js" type="text/javascript" charset="utf-8"></script>
 
-  <link rel="stylesheet" href="libs/bootstrap.css" type="text/css">
   <link rel="stylesheet" href="main.css" type="text/css">
+
+<!--
+    TODO:
+    2 The checkbox changes are too slow. Separate and do the updates for each individual checkbox instead of iterate every one
+    of them every time something happens..
+    1 Create a legend for the scatterplot. It would really help in understanding the data on first sight.
+    3 Separate the two SVG to two different html page to reduce calculations
+    4 Calculate the min-max values once and not every time for every update ( see todo:6 and d3.extent() )
+    5 Add grid lines to scatterplot
+    6 Refactor the csv loading to use d3.csv() method. Maybe that will work better on chrome because right now this code only
+    works on chrome if it started from a web-server (apache, python -m http.server 8888)
+    7 Create brush and make it work to put some more interaction into the parallel coordinates svg.
+    -->
 
 </head>
 <body>
 <h1 class="text-center">What makes a good wine?</h1>
-<p class="lead text-center"> Visualizing 6497 different red and white wine.</p>
-
-    <span style="vertical-align:2000%;">
+<p class="lead text-center"> Visualizing 6497 different red and white wine.
+<a href="wine/wine.txt"> Dataset details </a></p>
+<div id="scatterplot_wrapper">
+    <span style="vertical-align:1000%;">
     <label>
-        y axis:
+        y:
         <select id="data_y">
             <option value="fixed_acidity" selected>Fixed acidity</option>
             <script>
@@ -40,7 +57,7 @@
 
     <div style="margin-left:30%">
     <label>
-        x axis:
+        x:
         <select id="data_x">
             <option value="fixed_acidity" selected>Fixed acidity</option>
             <script>
@@ -51,12 +68,13 @@
         </select>
     </label>
     </div>
+</div>
 
     <div id="selectboxes" class="well">
         <div id="dataset_selectbox">
             <strong>Show data: </strong>
-            <label><input type="checkbox" name="red_wine" value="red" checked/> red wine data <span></span></label>
-            <label><input type="checkbox" name="white_wine" value="white" checked/> white wine data<span></span></label>
+            <label><input type="checkbox" name="red_wine" value="red" checked/> red wine data <i>(1599)</i></label>
+            <label><input type="checkbox" name="white_wine" value="white" checked/> white wine data<i>(4898)</i></label>
         </div>
         <div id="quality_selectbox">
             <strong>Show quality: </strong>

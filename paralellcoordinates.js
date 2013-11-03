@@ -10,7 +10,7 @@ var xScale,yScale;
 var lineFunction = d3.svg.line()
             .x(function(d){return d.x;})
             .y(function(d){return d.y;})
-            .interpolate("linear");
+            .interpolate("monotone");
 
 function drawParalellCoordinates(dataset) {
     p_svg = d3.select("#paralell")
@@ -81,10 +81,10 @@ function updateParallelQualityVisibility(wineClass){
     $("#quality_selectbox input").each(function(i,checkbox) {
         if(checkbox.checked) {
             $("#paralell .lines").find("."+wineClass+".q"+checkbox.value)
-                                .css({"stroke":wineClass =="red_wine"?"red":"gold","stroke-opacity":"0.95"});
+                                .css({"stroke":wineClass =="red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
         } else {
-            var bg_visibility = $("#bg_checkbox")[0].checked ? "0.05": "0";
-            $("#paralell .lines").find(".q"+checkbox.value).css({"stroke":"grey","stroke-opacity":bg_visibility});
+            var bg_visibility = $("#bg_checkbox")[0].checked ? "0.1": "0";
+            $("#paralell .lines").find(".q"+checkbox.value).css({"stroke":"silver","stroke-opacity":bg_visibility});
         }
     });
 }

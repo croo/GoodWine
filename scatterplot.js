@@ -1,4 +1,4 @@
-var scatterplot_width = 630,scatterplot_height = 630;
+var scatterplot_width = 530,scatterplot_height = 530;
 var svg;
 
 function drawScatterplot(dataset,xValue,yValue) {
