@@ -42,7 +42,7 @@ function drawScatterplot(dataset,xValue,yValue) {
                     .attr("r", function (d) { return Math.pow(d["quality"]/2,1.8);}) // exponential sizing for great good
                     .attr("class",function(d){return (d.type=="red"?"red_wine":"white_wine") +" q"+d.quality;});
 
-    updateVisibility();
+    updateScatterplotVisibility();
 
     var xAxis = d3.svg.axis().scale(xScale).orient("top");
     var yAxis = d3.svg.axis().scale(yScale).orient("right");

@@ -1,5 +1,5 @@
 
-var paralell_width = window.innerWidth-40,
+var paralell_width = window.innerWidth-60,
     paralell_height = 520,
     padding = 60;
 
@@ -44,17 +44,18 @@ function drawParalellCoordinates(dataset) {
             .attr("y",function(d,i){ return i%2 ? 30 : 10;})
             .text(function(d){return d.replace(/_/g,"\n");});
 
-    var background_lines = p_svg.append("g")
-                                .attr("class","background_lines")
+    var foreground_lines = p_svg.append("g")
+                                .attr("class","foreground_lines")
                                 .selectAll("path")
                                 .data(dataset).enter()
                                 .append("path")
                                 .attr("d", function(d){return lineFunction(lineData(d));})
                                 .attr("class",function(d){return (d.type=="red"?"red_wine":"white_wine") +" q"+d.quality;})
                                 .style("stroke-width",1)
-                                //.style("stroke","lavender")
+                                .style("stroke-opacity",0.2)
+                                .style("stroke","lavender")
                                 .style("fill","none");
-    updateVisibility();
+    updateParallelVisibility();
     /*var foreground_lines = p_svg.append("g")
                                 .attr("class","foreground_lines")
                                 .selectAll("path")
@@ -63,7 +64,31 @@ function drawParalellCoordinates(dataset) {
                                 .attr("d", getLine);*/
 }
 
-var i = 0;
+function updateParallelVisibility() {
+    $("#dataset_selectbox input").each(function(i,checkbox) {
+        if(checkbox.checked) {
+            $("#paralell ."+checkbox.name).show();
+            wines[checkbox.value].visible = true;
+            updateParallelQualityVisibility(checkbox.name);
+        } else {
+            $("#paralell ." + checkbox.name).hide();
+            wines[checkbox.value].visible = false;
+        }
+    });
+}
+
+function updateParallelQualityVisibility(wineType){
+    $("#quality_selectbox input").each(function(i,checkbox) {
+        if(checkbox.checked) {
+            $("#paralell ."+wineType+" .q"+checkbox.value).attr("stroke",wineType =="red"?"red":"gold");
+            $("."+wineType+" .q"+checkbox.value).attr("stroke-opacity",1.0);
+        } else {
+            $("#paralell .q"+checkbox.value).attr("stroke","lavender");
+            $("#paralell .q"+checkbox.value).attr("stroke-opacity",0.2);
+        }
+    });
+}
+
 function lineData(d) {
            var path =  wines.columns.map( function(p){
                     return {"x":xScale(p),"y":yScale[p](d[p])};
