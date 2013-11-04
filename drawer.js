@@ -40,14 +40,14 @@ $(document).ready(function() {
 
     // on changing the dataset visibility
     $("#dataset_selectbox input").change(function() {
-        updateScatterplotVisibility();
-        updateParallelVisibility();
+        updateScatterplotVisibility(this);
+        updateParallelVisibility(this);
     });
 
     // on changing the quality visibility
     $("#quality_selectbox input").change(function() {
-        updateScatterplotVisibility();
-        updateParallelVisibility();
+        updateScatterplotVisibility(this);
+        updateParallelVisibility(this);
     });
     
     $("#bg_checkbox").change(function() {
@@ -92,7 +92,8 @@ function initDraw() {
     drawParalellCoordinates(wines.white.concat(wines.red));
 }
 
-function updateScatterplotVisibility() {
+function updateScatterplotVisibility(toggled_checkbox) {
+    if(! toggled_checkbox) { // redraw everything
     $("#dataset_selectbox input").each(function(i,checkbox) {
         if(checkbox.checked) {
             $("#scatterplot ."+checkbox.name).show();
@@ -103,15 +104,45 @@ function updateScatterplotVisibility() {
             wines[checkbox.value].visible = false;
         }
     });
+    } else if(toggled_checkbox.name == "quality") { //else if it's a quality toggle
+        if(wines["red"].visible){
+            updateScatterplotQualityVisibility(".red_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
+        }
+        if(wines["white"].visible){
+            updateScatterplotQualityVisibility(".white_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
+        }
+    } else { // else it's a wine toggle.
+        $("#quality_selectbox input").each(function(i,quality_checkbox) {
+            if(quality_checkbox.checked) {
+                updateScatterplotWineVisibility("."+toggled_checkbox.name,".q"+quality_checkbox.value,toggled_checkbox.checked);
+            }
+        });
+    }
 }
 
-function updateScatterplotQualityVisibility(wineType){
-    $("#quality_selectbox input").each(function(i,checkbox) {
-        if(checkbox.checked) {
-            $("#scatterplot "+wineType+" .q"+checkbox.value).show();
+function updateScatterplotWineVisibility(wine,quality,wineOn) {
+    if(wineOn) {
+        $("#scatterplot "+wine+quality).show();
+    } else {
+        $("#scatterplot "+wine+quality).hide();
+    }
+}
+
+function updateScatterplotQualityVisibility(wineType,quality,qualityOn){
+    if(! quality || ! qualityOn) { // redraw everything
+        $("#quality_selectbox input").each(function(i,checkbox) {
+            if(checkbox.checked) {
+                $("#scatterplot "+wineType+" .q"+checkbox.value).show();
+            } else {
+                $("#scatterplot .q"+checkbox.value).hide();
+            }
+        });
+    } else {
+        if(qualityOn) {
+            $("#scatterplot "+wineType+quality).show();
         } else {
-            $("#scatterplot .q"+checkbox.value).hide();
+            $("#scatterplot "+wineType+quality).hide();
         }
-    });
+    }
 }
 

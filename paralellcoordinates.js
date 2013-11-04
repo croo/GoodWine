@@ -56,37 +56,68 @@ function drawParalellCoordinates(dataset) {
             .style("stroke","lavender")
             .style("fill","none");
     updateParallelVisibility();
-    /*var foreground_lines = p_svg.append("g")
-                                .attr("class","foreground_lines")
-                                .selectAll("path")
-                                .data(dataset).enter()
-                                .append("path");
-                                .attr("d", getLine);*/
 }
 
-function updateParallelVisibility() {
-    $("#dataset_selectbox input").each(function(i,checkbox) {
-        if(checkbox.checked) {
-            $("#paralell .lines ."+checkbox.name).show();
-            wines[checkbox.value].visible = true;
-            updateParallelQualityVisibility(checkbox.name);
-        } else {
-            $("#paralell .lines ." + checkbox.name).hide();
-            wines[checkbox.value].visible = false;
+function updateParallelVisibility(toggled_checkbox) {
+    if(! toggled_checkbox) { // redraw everything
+        $("#dataset_selectbox input").each(function(i,checkbox) {
+            if(checkbox.checked) {
+                $("#paralell .lines ."+checkbox.name).show();
+                wines[checkbox.value].visible = true;
+                updateParallelQualityVisibility("."+checkbox.name);
+            } else {
+                $("#paralell .lines ." + checkbox.name).hide();
+                wines[checkbox.value].visible = false;
+            }
+        });
+    } else if(toggled_checkbox.name == "quality") { //else if it's a quality toggle
+        if(wines["red"].visible){
+            updateParallelQualityVisibility(".red_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
         }
-    });
+        if(wines["white"].visible){
+            updateParallelQualityVisibility(".white_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
+        }
+    } else { // else it's a wine toggle.
+        $("#quality_selectbox input").each(function(i,quality_checkbox) {
+            if(quality_checkbox.checked) {
+                updateParallelWineVisibility("."+toggled_checkbox.name,".q"+quality_checkbox.value,toggled_checkbox.checked);
+            }
+        });
+    }
 }
 
-function updateParallelQualityVisibility(wineClass){
-    $("#quality_selectbox input").each(function(i,checkbox) {
-        if(checkbox.checked) {
-            $("#paralell .lines").find("."+wineClass+".q"+checkbox.value)
-                                .css({"stroke":wineClass =="red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
-        } else {
+function updateParallelWineVisibility(wineType,quality,wineOn) {
+    if(wineOn) {
+            $("#paralell .lines").find(wineType+quality)
+                                    .css({"stroke":wineType ==".red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
+    } else {
             var bg_visibility = $("#bg_checkbox")[0].checked ? "0.1": "0";
-            $("#paralell .lines").find(".q"+checkbox.value).css({"stroke":"silver","stroke-opacity":bg_visibility});
+            $("#paralell .lines").find(wineType+quality)
+                                    .css({"stroke":"silver","stroke-opacity":bg_visibility});
+    }
+}
+
+function updateParallelQualityVisibility(wineType,quality,qualityOn){
+    var bg_visibility = $("#bg_checkbox")[0].checked ? "0.1": "0";
+    if(! quality || ! qualityOn) { // redraw everything
+        $("#quality_selectbox input").each(function(i,checkbox) {
+            if(checkbox.checked) {
+                $("#paralell .lines").find(wineType+".q"+checkbox.value)
+                                    .css({"stroke":wineType ==".red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
+            } else {
+                $("#paralell .lines").find(".q"+checkbox.value)
+                                    .css({"stroke":"silver","stroke-opacity":bg_visibility});
+            }
+        });
+    } else {
+        if(qualityOn) {
+            $("#paralell .lines").find(wineType+quality)
+                                    .css({"stroke":wineType ==".red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
+        } else {
+            $("#paralell .lines").find(wineType+quality)
+                                    .css({"stroke":"silver","stroke-opacity":bg_visibility});
         }
-    });
+    }
 }
 
 function lineData(d) {
