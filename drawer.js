@@ -112,6 +112,7 @@ function updateScatterplotVisibility(toggled_checkbox) {
             updateScatterplotQualityVisibility(".white_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
         }
     } else { // else it's a wine toggle.
+            wines[toggled_checkbox.value].visible = toggled_checkbox.checked;
         $("#quality_selectbox input").each(function(i,quality_checkbox) {
             if(quality_checkbox.checked) {
                 updateScatterplotWineVisibility("."+toggled_checkbox.name,".q"+quality_checkbox.value,toggled_checkbox.checked);

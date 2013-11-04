@@ -78,6 +78,7 @@ function updateParallelVisibility(toggled_checkbox) {
             updateParallelQualityVisibility(".white_wine",".q"+toggled_checkbox.value,toggled_checkbox.checked);
         }
     } else { // else it's a wine toggle.
+            wines[toggled_checkbox.value].visible = toggled_checkbox.checked;
         $("#quality_selectbox input").each(function(i,quality_checkbox) {
             if(quality_checkbox.checked) {
                 updateParallelWineVisibility("."+toggled_checkbox.name,".q"+quality_checkbox.value,toggled_checkbox.checked);
@@ -88,7 +89,7 @@ function updateParallelVisibility(toggled_checkbox) {
 
 function updateParallelWineVisibility(wineType,quality,wineOn) {
     if(wineOn) {
-            $("#paralell .lines").find(wineType+quality)
+            $("#paralell .lines").find(wineType+quality).show()
                                     .css({"stroke":wineType ==".red_wine"?"red":"goldenrod","stroke-opacity":"0.8"});
     } else {
             var bg_visibility = $("#bg_checkbox")[0].checked ? "0.1": "0";
